@@ -17,6 +17,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         getAllDetails()
     }
 
+    //get all data that parsed from mainHomeFragment
     private fun getAllDetails() {
         val details = arguments?.getParcelable<GetAllGhibliFilmsResponseItem>("GHIBLIFILMDATA")
         val judulInggris = details!!.title
@@ -28,6 +29,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         val deskripsi = details.description
         val image = details.image
 
+        //set text of view
         binding.detailJudulAsli.text = judulAsli
         binding.detailJudulInggris.text = judulInggris
         binding.detailJudulRomaji.text = judulRomaji
@@ -35,7 +37,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         binding.detailProducer.text = producer
         binding.detailTanggalRilis.text = releaseDate
         binding.detailDeskripsi.text = deskripsi
-
         Glide.with(requireContext())
             .load(image)
             .error(R.drawable.ic_launcher_background)

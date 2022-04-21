@@ -9,10 +9,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ViewModelUser : ViewModel() {
+    //init live data
     var liveDataUser : MutableLiveData<List<GetAllUserResponseItem>> = MutableLiveData()
     fun getLiveUserObserver() : MutableLiveData<List<GetAllUserResponseItem>>{
         return liveDataUser
     }
+
+    //set value of livedata from API
     fun setLiveDataUserFromApi(){
         ApiUserClient.instance.getAllUsers()
             .enqueue(object : Callback<List<GetAllUserResponseItem>> {

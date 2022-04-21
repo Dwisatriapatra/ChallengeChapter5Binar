@@ -26,9 +26,13 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentProfileBinding.bind(view)
         initField()
+
+        //logout button action
         binding.profileButtonLogout.setOnClickListener {
             logout()
         }
+
+        //update button action
         binding.profileButtonUpdate.setOnClickListener {
             sharedPreference = requireActivity().getSharedPreferences("LOGGED_IN", Context.MODE_PRIVATE)
             val namaLengkap = binding.profileNamaLengkap.text.toString()
@@ -90,6 +94,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             }.show()
     }
 
+    //function for updating data
     private fun updateUserData(
         id : String,
         namaLengkap : String,

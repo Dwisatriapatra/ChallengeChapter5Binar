@@ -18,6 +18,8 @@ import com.example.challengechapter5binar.databinding.FragmentMainHomeBinding
 import com.example.challengechapter5binar.viewmodel.ViewModelGhibliFilm
 
 class MainHomeFragment : Fragment(R.layout.fragment_main_home) {
+
+    //init gloval var
     private lateinit var binding : FragmentMainHomeBinding
     private lateinit var adapterGhibliFilm : GhibliFilmsAdapter
     private lateinit var viewModel : ViewModelGhibliFilm
@@ -27,7 +29,7 @@ class MainHomeFragment : Fragment(R.layout.fragment_main_home) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMainHomeBinding.bind(view)
 
-        getUsername()
+        getMainProfile()
         initRecyclerView()
         getDataGhibliFilmUsingViewModel()
         binding.profileIcon.setOnClickListener {
@@ -35,8 +37,9 @@ class MainHomeFragment : Fragment(R.layout.fragment_main_home) {
         }
     }
 
+    //function to get username and user photo profile in home
     @SuppressLint("SetTextI18n")
-    private fun getUsername(){
+    private fun getMainProfile(){
         sharedPreference = requireActivity().getSharedPreferences("LOGGED_IN", Context.MODE_PRIVATE)
         val username = sharedPreference.getString("DATAUSERNAME", null)
         val image = sharedPreference.getString("DATAIMAGE", null)
@@ -48,6 +51,7 @@ class MainHomeFragment : Fragment(R.layout.fragment_main_home) {
             .into(binding.profileIcon)
     }
 
+    //set layout manager and adapter, also bundling data of film, so we can be parsing it to detail
     private fun initRecyclerView(){
         binding.rvGhibliFilm.layoutManager = LinearLayoutManager(requireContext())
         adapterGhibliFilm = GhibliFilmsAdapter {
@@ -59,6 +63,7 @@ class MainHomeFragment : Fragment(R.layout.fragment_main_home) {
         binding.rvGhibliFilm.adapter = adapterGhibliFilm
     }
 
+    //get data of ghibli film
     private fun getDataGhibliFilmUsingViewModel() {
         viewModel = ViewModelProvider(this).get(ViewModelGhibliFilm::class.java)
         viewModel.getLiveGhibliFilmObserver().observe(viewLifecycleOwner, Observer {

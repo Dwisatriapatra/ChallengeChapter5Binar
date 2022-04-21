@@ -21,6 +21,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentRegisterBinding.bind(view)
 
+        //register button action
         binding.buttonRegister.setOnClickListener {
             val nama = binding.registerInputNama.text.toString()
             val username = binding.registerInputUsername.text.toString()
@@ -30,10 +31,13 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             val password = binding.registerInputPassword.text.toString()
             val email = binding.registerInputEmail.text.toString()
             val konfirmasiPassword = binding.registerInputKonfirmasiPassword.text.toString()
+
+            //check if all fields is not empty
             if (nama.isNotEmpty() && username.isNotEmpty() && alamat.isNotEmpty() &&
                 tanggalLahir.isNotEmpty() && password.isNotEmpty() && email.isNotEmpty() &&
                 konfirmasiPassword.isNotEmpty()
             ) {
+                //check similarity of password and konfirmasiPassword
                 if (password == konfirmasiPassword) {
                     postDataNewUser(alamat, email, image, username, tanggalLahir, password, nama)
                 } else {
@@ -50,6 +54,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         }
     }
 
+    //function for adding new user to REST API
     private fun postDataNewUser(
         alamat: String, email: String, image: String, username: String,
         tanggalLahir: String, password: String, name: String
@@ -96,6 +101,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             })
     }
 
+    //function to fixing requireContext error problem
     fun checkIfFragmentAttached(operation: Context.() -> Unit) {
         if (isAdded && context != null) {
             operation(requireContext())

@@ -16,6 +16,7 @@ import com.example.challengechapter5binar.model.GetAllUserResponseItem
 import com.example.challengechapter5binar.viewmodel.ViewModelUser
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
+    //init global variable
     private lateinit var binding : FragmentLoginBinding
     private lateinit var viewModel : ViewModelUser
     private lateinit var listUser : List<GetAllUserResponseItem>

@@ -9,10 +9,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ViewModelGhibliFilm : ViewModel() {
+    //init live data
     private var liveDataGhibliFilm : MutableLiveData<List<GetAllGhibliFilmsResponseItem>> = MutableLiveData()
     fun getLiveGhibliFilmObserver() : MutableLiveData<List<GetAllGhibliFilmsResponseItem>>{
         return liveDataGhibliFilm
     }
+
+    //set value of live data from REST API
     fun makeApiGhibliFilm(){
         ApiGhibliFilmClient.instance.getAllFilms()
             .enqueue(object : Callback<List<GetAllGhibliFilmsResponseItem>> {

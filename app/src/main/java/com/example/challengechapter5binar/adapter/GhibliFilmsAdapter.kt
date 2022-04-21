@@ -11,12 +11,13 @@ import com.example.challengechapter5binar.model.GetAllGhibliFilmsResponseItem
 class GhibliFilmsAdapter(
     private val onClick: (GetAllGhibliFilmsResponseItem) -> Unit
 ) : RecyclerView.Adapter<GhibliFilmsAdapter.ViewHolder>() {
-
+    // initializing list dan make function to set value of that list
     private var listGhibliFilms : List<GetAllGhibliFilmsResponseItem>? = null
     fun setDataGhibliFilms(list : List<GetAllGhibliFilmsResponseItem>){
         this.listGhibliFilms = list
     }
 
+    //view holder with viewBinding
     inner class ViewHolder(val binding: ItemAdapterGhibliFilmBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -29,6 +30,7 @@ class GhibliFilmsAdapter(
         return ViewHolder(binding)
     }
 
+    //set all text in view
     override fun onBindViewHolder(holder: GhibliFilmsAdapter.ViewHolder, position: Int) {
         with(holder) {
             with(listGhibliFilms!![position]) {
