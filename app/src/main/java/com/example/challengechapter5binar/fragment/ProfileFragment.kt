@@ -105,35 +105,42 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         password : String,
         image : String
     ) {
-        sharedPreference = requireActivity().getSharedPreferences("LOGGED_IN", Context.MODE_PRIVATE)
-        ApiUserClient.instance.updateUser(id, RequestUser(
-            alamat,
-            email,
-            image,
-            namaLengkap,
-            password,
-            tanggalLahir,
-            username
-        ))
-            .enqueue(object : Callback<List<GetAllUserResponseItem>> {
-                override fun onResponse(
-                    call: Call<List<GetAllUserResponseItem>>,
-                    response: Response<List<GetAllUserResponseItem>>
-                ) {
-                    if(response.isSuccessful){
-                        Toast.makeText(requireContext(), "Data berhasil diupdate", Toast.LENGTH_SHORT).show()
-                        //reload activity
-                        val mIntent = activity?.intent
-                        activity?.finish()
-                        startActivity(mIntent)
-                    }else{
-                        Toast.makeText(requireContext(), response.message(), Toast.LENGTH_SHORT).show()
-                    }
-                }
-                override fun onFailure(call: Call<List<GetAllUserResponseItem>>, t: Throwable) {
-                    Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
-                }
+        AlertDialog.Builder(requireContext())
+            .setTitle("UPDATE")
+            .setMessage("Yakin ingin mengupdate data anda?")
+            .setNegativeButton("Tidak"){ dialogInterface: DialogInterface, i: Int ->
+                dialogInterface.dismiss()
+            }.setPositiveButton("Ya"){ dialogInterface: DialogInterface, i: Int ->
+                sharedPreference = requireActivity().getSharedPreferences("LOGGED_IN", Context.MODE_PRIVATE)
+                ApiUserClient.instance.updateUser(id, RequestUser(
+                    alamat,
+                    email,
+                    image,
+                    namaLengkap,
+                    password,
+                    tanggalLahir,
+                    username
+                ))
+                    .enqueue(object : Callback<List<GetAllUserResponseItem>> {
+                        override fun onResponse(
+                            call: Call<List<GetAllUserResponseItem>>,
+                            response: Response<List<GetAllUserResponseItem>>
+                        ) {
+                            if(response.isSuccessful){
+                                Toast.makeText(requireContext(), "Data berhasil diupdate", Toast.LENGTH_SHORT).show()
+                                //reload activity
+                                val mIntent = activity?.intent
+                                activity?.finish()
+                                startActivity(mIntent)
+                            }else{
+                                Toast.makeText(requireContext(), response.message(), Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        override fun onFailure(call: Call<List<GetAllUserResponseItem>>, t: Throwable) {
+                            Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+                        }
 
-            })
+                    })
+            }.show()
     }
 }

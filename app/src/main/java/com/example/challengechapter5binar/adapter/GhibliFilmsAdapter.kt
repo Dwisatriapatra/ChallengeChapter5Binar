@@ -1,5 +1,6 @@
 package com.example.challengechapter5binar.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -31,6 +32,7 @@ class GhibliFilmsAdapter(
     }
 
     //set all text in view
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: GhibliFilmsAdapter.ViewHolder, position: Int) {
         with(holder) {
             with(listGhibliFilms!![position]) {
